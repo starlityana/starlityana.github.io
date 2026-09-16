@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Яна — Портфолио</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f4f5fc;
+    --surface: #ffffff;
+    --surface-2: #eef0fb;
+    --ink: #1c2130;
+    --ink-dim: #626b83;
+    --border: #dfe3f2;
+    --accent: #3f5fe0;
+    --accent-ink: #ffffff;
+    --accent-pink: #ff5fa8;
+    --code-bg: #10131b;
+    --code-ink: #d6deea;
+    --code-border: #262c3a;
+    --success: #1f9d6b;
+    --tok-kw: #7aa2ff;
+    --tok-str: #ff8fc0;
+    --tok-key: #9fd6ff;
+    --tok-bool: #ff8a68;
+    --shadow: 0 1px 2px rgba(28,33,48,.05), 0 8px 24px rgba(63,95,224,.08);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+    padding-inline: 16px;
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+  h1, h2, h3 { font-family: "JetBrains Mono", ui-monospace, monospace; text-wrap: balance; margin: 0; }
+  p { line-height: 1.6; margin: 0; }
+  a { color: inherit; }
+
+  .page { max-width: 980px; margin-inline: auto; padding-block: 20px 64px; }
+
+  .chrome {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+  .chrome-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+  .url-pill {
+    margin-left: 4px;
+    flex: 1;
+    max-width: 260px;
+    background: var(--surface-2);
+    color: var(--ink-dim);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .lock { font-size: 10px; }
+  .nav {
+    display: flex;
+    gap: 4px;
+    padding: 8px 10px;
+    flex-wrap: wrap;
+  }
+  .nav a {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink-dim);
+    padding: 6px 12px;
+    border-radius: 8px;
+  }
+  .nav a:hover { color: var(--ink); background: var(--surface-2); }
+  .nav a:focus-visible, a:focus-visible, .btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  section { padding-block: 44px; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+  section > h2 {
+    font-size: 13px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+
+  .hero {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    padding-top: 8px;
+    border-bottom: none;
+  }
+  .hero-text { flex: 1 1 360px; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    background: var(--surface-2);
+    color: var(--success);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+  }
+  .pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 0 var(--success);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(31,157,107,.5); }
+    70% { box-shadow: 0 0 0 8px rgba(31,157,107,0); }
+    100% { box-shadow: 0 0 0 0 rgba(31,157,107,0); }
+  }
+  .hero-text h1 { font-size: clamp(32px, 5vw, 48px); font-weight: 800; }
+  .role {
+    font-size: 18px;
+    font-weight: 600;
+    font-family: "JetBrains Mono", monospace;
+    display: inline-block;
+    background: linear-gradient(90deg, var(--accent), var(--accent-pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .tagline { color: var(--ink-dim); max-width: 52ch; }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 11px 20px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    transition: transform .15s ease, opacity .15s ease;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover { opacity: .92; }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--border); }
+  .btn-ghost:hover { background: var(--surface-2); }
+
+  .hero-code { flex: 1 1 320px; min-width: 0; }
+  .code-window {
+    background: var(--code-bg);
+    border: 1px solid var(--code-border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .code-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--code-border);
+  }
+  .code-title { margin-left: 6px; font-family: "JetBrains Mono", monospace; font-size: 12px; color: #8b95a7; }
+  .code-body {
+    margin: 0;
+    padding: 18px 16px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--code-ink);
+    overflow-x: auto;
+  }
+  .tok-kw { color: var(--tok-kw); }
+  .tok-var { color: var(--code-ink); }
+  .tok-key { color: var(--tok-key); }
+  .tok-str { color: var(--tok-str); }
+  .tok-bool { color: var(--tok-bool); }
+
+  .about p { max-width: 62ch; color: var(--ink-dim); margin-bottom: 24px; }
+  .stats { display: flex; gap: 28px; flex-wrap: wrap; }
+  .stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat-num { font-family: "JetBrains Mono", monospace; font-variant-numeric: tabular-nums; font-size: 28px; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: 13px; color: var(--ink-dim); }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    transition: transform .18s ease;
+  }
+  .project-card:hover { transform: translateY(-3px); }
+  .project-card-empty {
+    background: transparent;
+    border: 1.5px dashed var(--border);
+    box-shadow: none;
+    justify-content: center;
+  }
+  .project-card-empty:hover { transform: none; }
+  .project-body-empty { align-items: flex-start; color: var(--ink-dim); }
+  .project-body-empty h3 { color: var(--ink-dim); }
+  .thumb {
+    height: 130px;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    padding: 12px 14px;
+  }
+  .thumb-1 { background: linear-gradient(135deg, var(--accent), var(--accent-pink)); }
+  .thumb-2 { background: linear-gradient(135deg, #6f7ff5, #ff8fc0); }
+  .thumb-3 { background: linear-gradient(135deg, #3f5fe0, #ffb0d8); }
+  .thumb-chip { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.55); }
+  .project-body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .project-body h3 { font-size: 16px; font-weight: 700; }
+  .project-body p { color: var(--ink-dim); font-size: 14px; }
+  .tag-row { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--ink-dim);
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 999px;
+  }
+  .project-links { display: flex; gap: 16px; margin-top: auto; padding-top: 6px; }
+  .project-links a { font-size: 13px; font-weight: 600; color: var(--accent); text-decoration: none; }
+  .project-links a:hover { text-decoration: underline; }
+
+  .chip-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: var(--shadow);
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .chip:hover { border-color: var(--accent-pink); color: var(--accent-pink); }
+
+  .contact p { color: var(--ink-dim); max-width: 56ch; margin-bottom: 20px; }
+  .contact-row { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
+  .link-ext { font-size: 14px; font-weight: 600; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+  .link-ext:hover { border-color: var(--accent); color: var(--accent); }
+
+  footer { padding-top: 32px; color: var(--ink-dim); font-size: 13px; text-align: center; }
+
+  @media (max-width: 640px) {
+    .hero { flex-direction: column; align-items: stretch; }
+    .stats { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="chrome" role="banner">
+    <div class="chrome-bar">
+      <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+      <div class="url-pill"><span class="lock">🔒</span>яна.dev</div>
+    </div>
+    <nav class="nav" aria-label="Разделы страницы">
+      <a href="#about">О себе</a>
+      <a href="#projects">Проекты</a>
+      <a href="#skills">Навыки</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-text">
+        <span class="badge"><span class="pulse"></span>Открыт(а) для проектов</span>
+        <h1>Яна</h1>
+        <p class="role">Веб-дизайнер и вёрстальщик</p>
+        <p class="tagline">Продумываю дизайн сайта и сама собираю его в код — от макета до готовой страницы в браузере. Только начинаю путь в веб-разработке, но учусь быстро и люблю доводить детали до конца.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#contact">Написать мне</a>
+          <a class="btn btn-ghost" href="#projects">Смотреть проекты</a>
+        </div>
+      </div>
+      <div class="hero-code" aria-hidden="true">
+        <div class="code-window">
+          <div class="code-head"><span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span><span class="code-title">profile.js</span></div>
+          <pre class="code-body"><code><span class="tok-kw">const</span> <span class="tok-var">designer</span> = {
+  <span class="tok-key">name</span>: <span class="tok-str">"Яна"</span>,
+  <span class="tok-key">role</span>: <span class="tok-str">"Web Designer & Coder"</span>,
+  <span class="tok-key">city</span>: <span class="tok-str">"Кропоткин"</span>,
+  <span class="tok-key">stack</span>: [<span class="tok-str">"Figma"</span>, <span class="tok-str">"HTML"</span>, <span class="tok-str">"CSS"</span>],
+  <span class="tok-key">learning</span>: <span class="tok-bool">true</span>
+};</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <h2>О себе</h2>
+      <p>Занимаюсь разработкой сайтов и нахожусь в начале пути: уже выполнила первый коммерческий заказ и получила ценный опыт работы с реальными задачами. Для меня важно не просто сверстать страницу, а сделать так, чтобы сайт был удобным для пользователя и решал задачи бизнеса. Готова браться за проекты, где смогу расти и приносить пользу.</p>
+      <div class="stats">
+        <div class="stat"><span class="stat-num">2</span><span class="stat-label">коммерческих проекта</span></div>
+        <div class="stat"><span class="stat-num">2</span><span class="stat-label">сайта в продакшене</span></div>
+      </div>
+    </section>
+
+    <section class="projects" id="projects">
+      <h2>Проекты</h2>
+      <div class="project-grid">
+        <article class="project-card">
+          <div class="thumb thumb-1" aria-hidden="true">
+            <span class="thumb-chip"></span><span class="thumb-chip"></span><span class="thumb-chip"></span>
+          </div>
+          <div class="project-body">
+            <h3>АДОРА — магазин дверей и полов</h3>
+            <p>Первый коммерческий заказ: интернет-магазин для розничной сети в Кропоткине. Каталог межкомнатных и входных дверей с фильтром по параметрам, раздел напольных покрытий с калькулятором стоимости, форма вызова замерщика и карта на Яндекс.Картах.</p>
+            <div class="tag-row"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Формы</span><span class="tag">Яндекс.Карты</span></div>
+            <div class="project-links"><a href="https://adora-doors-site.s3-website.cloud.ru" target="_blank" rel="noopener">Открыть сайт →</a></div>
+          </div>
+        </article>
+        <article class="project-card">
+          <div class="thumb thumb-2" aria-hidden="true">
+            <span class="thumb-chip"></span><span class="thumb-chip"></span><span class="thumb-chip"></span>
+          </div>
+          <div class="project-body">
+            <h3>АвтоСтиль SR — авточехлы для тягачей</h3>
+            <p>Сайт производителя авточехлов и автотканей для магистральных тягачей (Volvo, Scania, MAN, DAF, КАМАЗ и др.). Онлайн-конструктор подбора материала, цвета вставок и строчки с просмотром в реальном времени, каталоги тканей и готовых чехлов, форма заявки под нестандартную модель.</p>
+            <div class="tag-row"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span><span class="tag">Конструктор</span></div>
+            <div class="project-links"><a href="https://autostyle-sr.s3-website.cloud.ru" target="_blank" rel="noopener">Открыть сайт →</a></div>
+          </div>
+        </article>
+        <article class="project-card project-card-empty">
+          <div class="project-body project-body-empty">
+            <h3>Следующий проект</h3>
+            <p>Здесь появится ваш следующий проект. Пришлите ссылку или описание — и я добавлю его сюда же.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="skills" id="skills">
+      <h2>Навыки и инструменты</h2>
+      <div class="chip-row">
+        <span class="chip">HTML5</span>
+        <span class="chip">CSS3 / Flexbox / Grid</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">Git & GitHub</span>
+        <span class="chip">Адаптивная вёрстка</span>
+        <span class="chip">Figma</span>
+        <span class="chip">VS Code</span>
+        <span class="chip">Работа с API</span>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <h2>Контакты</h2>
+      <p>Открыт(а) к предложениям стажировок, фриланс-проектов и совместной работе — напишите, расскажу подробнее о себе и покажу другие работы.</p>
+      <div class="contact-row">
+        <a class="btn btn-primary" href="mailto:yanochka060201@gmail.com">yanochka060201@gmail.com</a>
+        <a class="link-ext" href="https://max.ru/u/f9LHodD0cOK308pRe1gxThCOhCZQWONmr7bOPsHeA3GURkHFvWW0iZ1jWHY" target="_blank" rel="noopener">Написать в MAX</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Яна — стартовый шаблон портфолио</p>
+  </footer>
+</div>
+</body>
+</html>
